@@ -4,10 +4,6 @@ from nltk.corpus import wordnet
 
 lemmatizer = nltk.WordNetLemmatizer()
 
-#word tokenizeing and part-of-speech tagger
-document = 'The little brown dog barked at the black cat'
-tokens = [nltk.word_tokenize(sent) for sent in [document]]
-postag = [nltk.pos_tag(sent) for sent in tokens][0]
 
 # Rule for NP chunk and VB Chunk
 grammar = r"""
@@ -20,11 +16,6 @@ grammar = r"""
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
         
 """
-#Chunking
-cp = nltk.RegexpParser(grammar)
-
-# the result is a tree
-tree = cp.parse(postag)
 
 def leaves(tree):
     """Finds NP (nounphrase) leaf nodes of a chunk tree."""
@@ -53,7 +44,20 @@ def get_terms(tree):
         terms = [normalise(w) for w,t in leaf]
         yield terms
 
+
+def generate_tree_from_input_text(document):
+    #Chunking
+    cp = nltk.RegexpParser(grammar)
+    #word tokenizeing and part-of-speech tagger
+    tokens = [nltk.word_tokenize(sent) for sent in [document]]
+    postag = [nltk.pos_tag(sent) for sent in tokens][0]
+    #Chunking
+    # the result is a tree
+    tree = cp.parse(postag)
+    return tree
+
 def process_input(sinput):
+    tree=generate_tree_from_input_text(sinput)
     terms = get_terms(tree)
     features = []
     for term in terms:
@@ -61,7 +65,8 @@ def process_input(sinput):
         for word in term:
             _term += ' ' + word
         features.append(_term.strip())
-    print(features)
+
+    return features
 
 
 def main():
@@ -70,7 +75,8 @@ def main():
     if api_desc.strip() == "":
         raise Exception("Description must be input")
     else:
-        process_input(api_desc)
+        features=process_input(api_desc)
+        print(features)
 
 
 if __name__ == '''__main__''':
