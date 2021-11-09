@@ -53,9 +53,8 @@ def get_terms(tree):
         terms = [normalise(w) for w,t in leaf]
         yield terms
 
-def main():
+def process_input(sinput):
     terms = get_terms(tree)
-
     features = []
     for term in terms:
         _term = ''
@@ -63,6 +62,15 @@ def main():
             _term += ' ' + word
         features.append(_term.strip())
     print(features)
+
+
+def main():
+    api_desc = input("Enter a description of the data you wish to use :")
+
+    if api_desc.strip() == "":
+        raise Exception("Description must be input")
+    else:
+        process_input(api_desc)
 
 
 if __name__ == '''__main__''':
