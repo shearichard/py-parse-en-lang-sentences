@@ -2,7 +2,6 @@ import nltk
 from nltk import word_tokenize, pos_tag
 from nltk.corpus import wordnet
 
-from IPython.display import display
 lemmatizer = nltk.WordNetLemmatizer()
 
 #word tokenizeing and part-of-speech tagger
