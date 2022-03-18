@@ -2,6 +2,8 @@
 Parse English language sentences to find the nouns and verbs
 
 # parenlang.py
+Unfortunately, the blog post cited here has been removed from medium.com and I can't find it on archive.ore.  It might be worth trying archive.org again in the future as the problem may be a transitory one.
+
 Initial work based on [this blog post](https://medium.com/analytics-vidhya/get-nouns-verbs-noun-and-verb-phrases-6a378259084).
 
 # noungrabber.py
